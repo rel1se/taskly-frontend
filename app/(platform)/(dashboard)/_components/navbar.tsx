@@ -13,10 +13,10 @@ const Navbar = () => {
                 <div className="hidden md:flex">
                     <Logo/>
                 </div>
-                <Button variant="default" size="md" className="hidden md:block h-auto py-1.5 px-4">
+                <Button variant="primary" size="sm" className="hidden md:block h-auto py-1.5 px-4">
                     Create
                 </Button>
-                <Button variant="default" size="sm" className="block md:hidden">
+                <Button variant="primary" size="sm" className="block md:hidden">
                     <Plus className="h-4 w-4"/>
                 </Button>
             </div>
