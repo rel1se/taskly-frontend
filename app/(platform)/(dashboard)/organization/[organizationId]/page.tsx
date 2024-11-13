@@ -1,15 +1,33 @@
-import {auth} from "@clerk/nextjs/server";
-import {OrganizationSwitcher} from "@clerk/nextjs";
 
-const OrganizationIdPage = () => {
-    const {userId, orgId} = auth();
+import {create} from "@/actions/create-board";
+import {Button} from "@/components/ui/button";
+import {db} from "@/lib/db";
+import {Board} from "@/app/(platform)/(dashboard)/organization/[organizationId]/board";
+
+const OrganizationIdPage = async () => {
+    const boards = await db.board.findMany()
 
     return (
-        <div>
-            Org page!
-
+        <div className="flex flex-col space-y-4">
+            <form action={create}>
+                <input
+                    id="title"
+                    name="title"
+                    required
+                    placeholder="Enter a board title"
+                    className="border-black border p-1"
+                />
+                <Button type="submit">
+                    Submit
+                </Button>
+            </form>
+            <div className="space-y-2">
+                {boards.map((board) => (
+                    <Board key={board.id} title={board.title} id={board.id} />
+                ))}
+            </div>
         </div>
     )
 }
 
-export default OrganizationIdPage
+export default OrganizationIdPage;
