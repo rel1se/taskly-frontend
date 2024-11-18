@@ -10,7 +10,7 @@ import {CreateBoard} from "@/actions/create-board/schema";
 const handler = async (data: InputType): Promise<ReturnType> => {
     const {userId} = auth()
 
-    if(!userId) return {
+    if (!userId) return {
         error: 'Unauthorized'
     }
 
