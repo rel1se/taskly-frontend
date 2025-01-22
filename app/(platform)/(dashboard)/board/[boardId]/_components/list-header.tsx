@@ -11,10 +11,9 @@ import {ListOptions} from "@/app/(platform)/(dashboard)/board/[boardId]/_compone
 
 interface ListHeaderProps {
     data: List
-    onAddCard: () => void
 }
 
-export const ListHeader = ({data, onAddCard}: ListHeaderProps) => {
+export const ListHeader = ({data}: ListHeaderProps) => {
     const [title, setTitle] = useState(data.title)
     const [isEditing, setIsEditing] = useState(false)
 
@@ -99,7 +98,7 @@ export const ListHeader = ({data, onAddCard}: ListHeaderProps) => {
                 </div>)}
             <ListOptions
                 data={data}
-                onAddCard={onAddCard}
+                onAddCard={enableEditing}
             />
         </div>
     )

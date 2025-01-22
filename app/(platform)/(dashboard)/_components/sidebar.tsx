@@ -90,7 +90,7 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
                         isActive={activeOrganization?.id === organization.id}
                         isExpanded={expanded[organization.id]}
                         organization={organization as Organization}
-                        onExpand={onExpand}
+                        expandedState={expanded}
                     />
                 ))}
 
