@@ -8,6 +8,7 @@ import {DeleteBoard} from "@/actions/delete-board/schema";
 import {redirect} from "next/navigation";
 import {createAuditLog} from "@/lib/create-audit-log";
 import {ACTION, ENTITY_TYPE} from "@prisma/client";
+import {decreaseAvailableCount} from "@/lib/org-limit";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
     const {userId, orgId} = auth()
@@ -27,13 +28,14 @@ const handler = async (data: InputType): Promise<ReturnType> => {
                 orgId
             },
         })
+        await decreaseAvailableCount()
         await createAuditLog({
             entityId: board.id,
             entityTitle: board.title,
             entityType: ENTITY_TYPE.BOARD,
             action: ACTION.DELETE
         })
-    } catch (error) {
+    } catch {
         return {
             error: 'Failed to delete'
         }
