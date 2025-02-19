@@ -28,16 +28,28 @@ export const NavItem = ({
                             isActive,
                             isExpanded,
                             organization,
-                            expandedState,
+                            expandedState
                         }: Omit<NavItemProps, "onExpand"> & { expandedState: Record<string, boolean> }) => {
     const router = useRouter();
     const pathname = usePathname();
 
     const routes = [
-        { label: "Boards", icon: <LayoutIcon className="h-4 w-4 mr-2" />, href: `/organization/${organization.id}` },
-        { label: "Activity", icon: <ActivityIcon className="h-4 w-4 mr-2" />, href: `/organization/${organization.id}/activity` },
-        { label: "Settings", icon: <SettingsIcon className="h-4 w-4 mr-2" />, href: `/organization/${organization.id}/settings` },
-        { label: "Billing", icon: <CreditCardIcon className="h-4 w-4 mr-2" />, href: `/organization/${organization.id}/billing` },
+        {label: "Boards", icon: <LayoutIcon className="h-4 w-4 mr-2"/>, href: `/organization/${organization.id}`},
+        {
+            label: "Activity",
+            icon: <ActivityIcon className="h-4 w-4 mr-2"/>,
+            href: `/organization/${organization.id}/activity`
+        },
+        {
+            label: "Settings",
+            icon: <SettingsIcon className="h-4 w-4 mr-2"/>,
+            href: `/organization/${organization.id}/settings`
+        },
+        {
+            label: "Billing",
+            icon: <CreditCardIcon className="h-4 w-4 mr-2"/>,
+            href: `/organization/${organization.id}/billing`
+        },
     ];
 
     const onClick = (href: string) => {
