@@ -13,3 +13,18 @@
         --radius: 0.5rem;
     }
 }
+
+.my-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.my-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.my-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #bdbdbd;
+    border-radius: 4px;
+    border: 1px solid #f1f1f1;
+}

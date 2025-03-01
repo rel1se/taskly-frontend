@@ -26,8 +26,6 @@ export default clerkMiddleware(async (auth, request) => {
         return NextResponse.redirect(orgSelection)
     }
 })
-
-
 export const config = {
     matcher: [
         // Skip Next.js internals and all static files, unless found in search params

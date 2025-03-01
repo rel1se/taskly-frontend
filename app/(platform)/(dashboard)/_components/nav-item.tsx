@@ -5,7 +5,7 @@ import Image from "next/image"
 import {useRouter, usePathname} from "next/navigation";
 
 import {AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion";
-import {ActivityIcon, CreditCardIcon, LayoutIcon, SettingsIcon} from "lucide-react";
+import {ActivityIcon, CreditCardIcon, LayoutIcon, MessageCircle, PersonStandingIcon, SettingsIcon} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {Skeleton} from "@/components/ui/skeleton";
 
@@ -34,7 +34,15 @@ export const NavItem = ({
     const pathname = usePathname();
 
     const routes = [
-        {label: "Boards", icon: <LayoutIcon className="h-4 w-4 mr-2"/>, href: `/organization/${organization.id}`},
+        {
+            label: "Boards",
+            icon: <LayoutIcon className="h-4 w-4 mr-2"/>,
+            href: `/organization/${organization.id}`},
+        {
+            label: "Chat",
+            icon: <MessageCircle className="h-4 w-4 mr-2"/>,
+            href: `/organization/${organization.id}/chat`
+        },
         {
             label: "Activity",
             icon: <ActivityIcon className="h-4 w-4 mr-2"/>,
@@ -50,6 +58,7 @@ export const NavItem = ({
             icon: <CreditCardIcon className="h-4 w-4 mr-2"/>,
             href: `/organization/${organization.id}/billing`
         },
+
     ];
 
     const onClick = (href: string) => {

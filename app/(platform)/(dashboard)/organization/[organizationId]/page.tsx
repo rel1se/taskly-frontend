@@ -4,9 +4,9 @@ import {BoardList} from "@/app/(platform)/(dashboard)/organization/[organization
 import {Suspense} from "react";
 import {checkSubscription} from "@/lib/subscription";
 
-
 const OrganizationIdPage = async () => {
-    const isPro = await checkSubscription()
+    const isPro = await checkSubscription();
+
     return (
         <div className="w-full mb-20">
             <Info isPro={isPro}/>
@@ -17,7 +17,7 @@ const OrganizationIdPage = async () => {
                 </Suspense>
             </div>
         </div>
-    )
+    );
 }
 
 export default OrganizationIdPage;
