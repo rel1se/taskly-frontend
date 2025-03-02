@@ -6,6 +6,8 @@ export const UpdateList = z.object({
         invalid_type_error: "Title is required"
     }).min(3, {
         message: 'Title is too short',
+    }).max(20, {
+        message: 'Title is too long'
     }),
     id: z.string(),
     boardId: z.string()
