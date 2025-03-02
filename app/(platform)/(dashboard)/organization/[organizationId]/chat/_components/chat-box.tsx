@@ -7,6 +7,8 @@ import { useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import { Textarea } from '@/components/ui/textarea';
 import { SendHorizonal } from "lucide-react";
+import {format} from "date-fns";
+import {ru} from "date-fns/locale";
 
 interface ChatMessage {
     id: string;
@@ -82,7 +84,7 @@ export default function ChatBox({ channelName }: ChatBoxProps) {
             id: Math.random().toString(),
             data: text,
             userId: user.id,
-            username: `${user.firstName} ${user.lastName}`,
+            username: user.username!,
             avatarUrl: user.imageUrl,
             timestamp: Date.now(),
         };
@@ -106,11 +108,7 @@ export default function ChatBox({ channelName }: ChatBoxProps) {
     };
 
     const formatTime = (timestamp: number) => {
-        return new Intl.DateTimeFormat('en-US', {
-            hour: 'numeric',
-            minute: 'numeric',
-            hour12: true,
-        }).format(timestamp);
+        return format(new Date(timestamp), 'dd MMM HH:mm ', { locale: ru });
     };
 
     const loadMoreHistory = async () => {
@@ -171,7 +169,7 @@ export default function ChatBox({ channelName }: ChatBoxProps) {
                                         alt="User avatar"
                                         width={30}
                                         height={30}
-                                        className="rounded-full"
+                                        className="w-[30px] h-[30px] rounded-full object-cover"
                                     />
                                 )}
 
@@ -208,7 +206,7 @@ export default function ChatBox({ channelName }: ChatBoxProps) {
                                         alt="Your avatar"
                                         width={30}
                                         height={30}
-                                        className="w-[25px] h-[25px] rounded-full object-cover"
+                                        className="w-[30px] h-[30px] rounded-full object-cover"
                                     />
                                 )}
                             </div>

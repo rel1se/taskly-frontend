@@ -16,9 +16,6 @@ export default function Chat() {
         const clientOptions = {
             authUrl: '/api/ably-chat',
             log: { level: 2 },
-            recover: (lastConnectionDetails: any, callback: (shouldRecover: boolean) => void) => {
-                callback(true);
-            }
         };
 
         const newClient = new Realtime(clientOptions);
