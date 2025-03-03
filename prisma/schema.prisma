@@ -39,11 +39,18 @@ model List {
   @@index(boardId)
 }
 
+enum STATUS {
+  TODO
+  IN_PROGRESS
+  DONE
+}
+
 model Card {
   id          String  @id @default(uuid())
   title       String
   order       Int
   description String? @db.Text
+  status      STATUS
 
   listId String
   list   List   @relation(fields: [listId], references: [id], onDelete: Cascade)

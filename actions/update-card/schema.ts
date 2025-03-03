@@ -1,4 +1,5 @@
 import {z} from 'zod'
+import {STATUS} from "@prisma/client";
 
 export const UpdateCard = z.object({
     boardId: z.string(),
@@ -10,6 +11,7 @@ export const UpdateCard = z.object({
             message: "Description is too short"
         })
     ),
+    status: z.nativeEnum(STATUS).optional(),
     title: z.optional(
         z.string({
             required_error: "Title is required",
