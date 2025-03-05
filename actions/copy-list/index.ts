@@ -56,6 +56,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
                             title: card.title,
                             description: card.description,
                             order: card.order,
+                            status: card.status
                         }))
                     }
                 }
