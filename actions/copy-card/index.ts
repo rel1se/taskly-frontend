@@ -46,7 +46,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
                 title: `${cardToCopy.title} - Copy`,
                 description: cardToCopy.description,
                 order: newOrder,
-                listId: cardToCopy.listId
+                listId: cardToCopy.listId,
+                status: cardToCopy.status
             }
         })
         await createAuditLog({
