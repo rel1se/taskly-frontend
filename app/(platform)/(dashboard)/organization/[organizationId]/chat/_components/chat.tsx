@@ -1,14 +1,14 @@
 'use client';
 
+import { useEffect, useState } from "react";
 import { Realtime } from 'ably';
 import { AblyProvider, ChannelProvider } from 'ably/react';
-import { useAuth } from "@clerk/nextjs";
-import { useEffect, useState } from "react";
+import Cookies from 'js-cookie';
 import ChatBox from "@/app/(platform)/(dashboard)/organization/[organizationId]/chat/_components/chat-box";
 
 export default function Chat() {
-    const { orgId } = useAuth();
     const [client, setClient] = useState<Realtime | null>(null);
+    const orgId = Cookies.get("orgId");
 
     useEffect(() => {
         if (!orgId) return;

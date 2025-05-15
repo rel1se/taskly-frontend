@@ -1,7 +1,7 @@
-import {auth} from "@clerk/nextjs/server";
 import {redirect} from "next/navigation";
 import {db} from "@/lib/db";
 import {ListContainer} from "@/app/(platform)/(dashboard)/board/[boardId]/_components/list-container";
+import {auth} from "@/lib/auth";
 
 interface BoardIdPageProps {
     params: {
@@ -10,8 +10,8 @@ interface BoardIdPageProps {
 }
 
 const BoardIdPage = async ({params}: BoardIdPageProps) => {
-    const {orgId} = auth()
-    if (!orgId) {
+    const session = await auth()
+    if (!session?.orgId) {
         redirect("/select-org")
     }
 
@@ -19,7 +19,7 @@ const BoardIdPage = async ({params}: BoardIdPageProps) => {
         where: {
             boardId: params.boardId,
             board: {
-                orgId
+                orgId: session.orgId
             }
         },
         include: {

@@ -5,7 +5,7 @@ import {ListForm} from "@/app/(platform)/(dashboard)/board/[boardId]/_components
 import {ListItem} from "@/app/(platform)/(dashboard)/board/[boardId]/_components/list-item";
 import {updateListOrder} from "@/actions/update-list-order";
 import {updateCardOrder} from "@/actions/update-card-order";
-import {useAction} from "@/hooks/useAction";
+import {useAction} from "@/hooks/use-action";
 
 import {useEffect, useState} from "react";
 import {DragDropContext, Droppable} from "@hello-pangea/dnd";

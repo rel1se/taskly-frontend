@@ -1,37 +1,27 @@
-import { clerkMiddleware, createRouteMatcher} from '@clerk/nextjs/server'
-import {NextResponse} from "next/server";
+import {NextRequest, NextResponse} from "next/server";
 
+export default function middleware(request: NextRequest) {
+    const {url, cookies} = request
 
-const isPublicRoute = createRouteMatcher(['/sign-in(.*)', '/sign-up(.*)', '/', '/api/webhook'])
+    const session = cookies.get('session')?.value
 
-export default clerkMiddleware(async (auth, request) => {
-    const {userId, orgId} = await auth()
-    if (userId && isPublicRoute(request)) {
-        let path = "/select-org"
-        if (orgId) {
-            path = `/organization/${orgId}`
+    const isAuthPage = url.includes('/auth')
+
+    if (isAuthPage) {
+        if (session) {
+            return NextResponse.redirect(new URL('/select-org', url))
         }
-
-        const orgSelection = new URL(path, request.url)
-        return NextResponse.redirect(orgSelection)
+        return NextResponse.next()
     }
 
-    if (!userId && !isPublicRoute(request)) {
-        return auth().redirectToSignIn({
-            returnBackUrl: request.url
-        })
+    if (!session) {
+        return NextResponse.redirect(new URL('/auth/login', url))
     }
-    if (userId && !orgId && request.nextUrl.pathname !== '/select-org') {
-        const orgSelection = new URL("/select-org", request.url)
-        return NextResponse.redirect(orgSelection)
-    }
-})
+}
 
 export const config = {
     matcher: [
-        // Skip Next.js internals and all static files, unless found in search params
-        '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-        // Always run for API routes
-        '/(api|trpc)(.*)',
+        '/auth/:path*', '/organization/:path*'
     ],
 }
+

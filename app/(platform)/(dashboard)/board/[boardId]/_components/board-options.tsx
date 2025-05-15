@@ -3,7 +3,7 @@
 import {Popover, PopoverClose, PopoverContent, PopoverTrigger} from "@/components/ui/popover"
 import {Button} from "@/components/ui/button";
 import {MoreHorizontal, X} from "lucide-react";
-import {useAction} from "@/hooks/useAction";
+import {useAction} from "@/hooks/use-action";
 import {deleteBoard} from "@/actions/delete-board";
 import {toast} from "sonner";
 

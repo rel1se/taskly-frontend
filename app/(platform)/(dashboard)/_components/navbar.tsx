@@ -1,10 +1,10 @@
 import {Plus} from "lucide-react";
-import {OrganizationSwitcher, UserButton} from "@clerk/nextjs";
 
 import {Logo} from "@/components/logo";
 import {Button} from "@/components/ui/button";
 import {MobileSidebar} from "@/app/(platform)/(dashboard)/_components/mobile-sidebar";
 import {FormPopover} from "@/components/form/form-popover";
+import {OrganizationSwitcher} from "@/components/organization/organization-switcher";
 
 
 const Navbar = () => {
@@ -27,30 +27,7 @@ const Navbar = () => {
                 </FormPopover>
             </div>
             <div className="ml-auto mr-4 flex items-center gap-x-2">
-                <OrganizationSwitcher
-                    hidePersonal
-                    afterCreateOrganizationUrl="/organization/:id"
-                    afterLeaveOrganizationUrl="/select-org"
-                    afterSelectOrganizationUrl="/organization/:id"
-                    appearance={ {
-                        elements: {
-                           rootBox: {
-                               display: "flex",
-                               justifyContent: "center",
-                               alignItems: "center",
-                           }
-                        }
-                    }}
-                />
-                <UserButton
-                    appearance={{
-                        elements: {
-                            avatarBox: {
-                                height: 30,
-                                width: 30,
-                            }
-                    }}}
-                />
+                <OrganizationSwitcher/>
             </div>
         </nav>
     )

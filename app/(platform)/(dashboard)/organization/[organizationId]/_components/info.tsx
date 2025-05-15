@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import {useOrganization} from "@clerk/nextjs";
 import Image from "next/image";
-import {CreditCard} from "lucide-react";
-import {Skeleton} from "@/components/ui/skeleton";
+import { CreditCard } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useOrganization } from "@/components/organization/hooks/use-organization";
+import DefaultAvatar from "@/public/default-avatar.png";
+import {IOrganization} from "@/components/auth/types";
 
 interface InfoProps {
-    isPro: boolean
+    isPro: boolean;
 }
 
-export const Info = ({isPro}: InfoProps) => {
-    const {organization, isLoaded} = useOrganization()
+export const Info = ({ isPro }: InfoProps) => {
+    const { data: organization, isLoading } = useOrganization<IOrganization>();
 
-    if (!isLoaded) {
-        return (
-            <Info.Skeleton/>
-        )
+    if (isLoading || !organization) {
+        return <Info.Skeleton />;
     }
 
     return (
@@ -23,38 +23,35 @@ export const Info = ({isPro}: InfoProps) => {
             <div className="w-[60px] h-[60px] relative">
                 <Image
                     fill
-                    src={organization?.imageUrl!}
+                    src={organization.avatar ?? DefaultAvatar}
                     alt="Organization"
                     className="rounded-md object-cover"
                 />
             </div>
             <div className="space-y-1">
-                <p className="font-semibold text-xl">
-                    {organization?.name}
-                </p>
+                <p className="font-semibold text-xl">{organization.name}</p>
                 <div className="flex items-center text-xs text-zinc-500">
-                    <CreditCard className="h-3 w-3 mr-1"/>
-                    {isPro ? 'Pro' : 'Free'}
+                    <CreditCard className="h-3 w-3 mr-1" />
+                    {isPro ? "Pro" : "Free"}
                 </div>
             </div>
         </div>
-    )
-}
-
+    );
+};
 
 Info.Skeleton = function SkeletonInfo() {
     return (
         <div className="flex items-center gap-x-4">
             <div className="w-[60px] h-[60px] relative">
-                <Skeleton className="w-full h-full absolute"/>
+                <Skeleton className="w-full h-full absolute" />
             </div>
             <div className="space-y-2">
-                <Skeleton className="h-10 w-[200px]"/>
+                <Skeleton className="h-10 w-[200px]" />
                 <div className="flex items-center">
-                    <Skeleton className="h-4 w-4 mr-2"/>
-                    <Skeleton className="h-4 w-[100px]"/>
+                    <Skeleton className="h-4 w-4 mr-2" />
+                    <Skeleton className="h-4 w-[100px]" />
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};

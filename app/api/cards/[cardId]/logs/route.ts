@@ -1,18 +1,19 @@
 import {NextResponse} from "next/server";
-import {auth} from "@clerk/nextjs/server";
 import {db} from "@/lib/db";
 import {ENTITY_TYPE} from "@prisma/client";
+import {auth} from "@/lib/auth";
 
 export async function GET(
-    request: Request,
     {params}: {params: {cardId: string}}
 ) {
     try {
-        const {userId, orgId} = auth()
+        const session = await auth()
 
-        if (!userId || !orgId) {
+        if (!session?.userId || !session?.orgId) {
             return new NextResponse("Unauthorized", {status: 401})
         }
+
+        const orgId = session.orgId
 
         const auditLogs = await db.auditLog.findMany({
             where: {

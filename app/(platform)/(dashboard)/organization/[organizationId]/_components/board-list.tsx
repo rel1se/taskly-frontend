@@ -1,7 +1,6 @@
 import {HelpCircle, User2} from "lucide-react";
 import {Hint} from "@/app/(platform)/(dashboard)/organization/[organizationId]/_components/hint";
 import {FormPopover} from "@/components/form/form-popover";
-import {auth} from "@clerk/nextjs/server";
 import {redirect} from "next/navigation";
 import {db} from "@/lib/db";
 import Link from "next/link";
@@ -9,18 +8,18 @@ import {Skeleton} from "@/components/ui/skeleton";
 import {getAvailableCount} from "@/lib/org-limit";
 import {MAX_FREE_BOARDS} from "@/constants/boards";
 import {checkSubscription} from "@/lib/subscription";
+import {auth} from "@/lib/auth";
 
 export const BoardList = async () => {
+    const session = await auth();
 
-    const {orgId} = auth()
-
-    if (!orgId) {
-        return redirect("/select-org")
+    if (!session?.orgId) {
+        return redirect('/select-org')
     }
 
     const boards = await db.board.findMany({
         where: {
-            orgId,
+            orgId: session.orgId,
         },
         orderBy: {
             createdAt: "desc",

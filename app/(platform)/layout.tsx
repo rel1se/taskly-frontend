@@ -1,17 +1,14 @@
-import {ClerkProvider} from "@clerk/nextjs";
 import {Toaster} from "sonner";
 import {ModalProvider} from "@/components/providers/modal-provider";
-import {QueryProvider} from "@/components/providers/query-provider";
+import {TanstackQueryProvider} from "@/components/providers/tanstack-query-provider";
 
 const PlatformLayout = ({children}: {children: React.ReactNode}) => {
     return (
-        <ClerkProvider>
-            <QueryProvider>
+            <TanstackQueryProvider>
                 <Toaster/>
                 <ModalProvider/>
                 {children}
-            </QueryProvider>
-        </ClerkProvider>
+            </TanstackQueryProvider>
     )
 }
 

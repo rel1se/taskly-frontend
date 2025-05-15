@@ -1,7 +1,7 @@
 "use client"
 
 import {Button} from "@/components/ui/button";
-import {useAction} from "@/hooks/useAction";
+import {useAction} from "@/hooks/use-action";
 import {stripeRedirect} from "@/actions/stripe-redirect";
 import {toast} from "sonner";
 import {useProModal} from "@/hooks/use-pro-modal";

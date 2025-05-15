@@ -1,9 +1,13 @@
-import {auth} from "@clerk/nextjs/server";
 import {db} from "@/lib/db";
 import {MAX_FREE_BOARDS} from "@/constants/boards";
+import {auth} from "@/lib/auth";
 
 export const incrementAvailableCount = async () => {
-    const {orgId} = auth()
+    const session = await auth();
+    if (!session) {
+        return;
+    }
+    const {orgId} = session;
 
     if (!orgId) {
         throw new Error("Unauthorized")
@@ -26,7 +30,11 @@ export const incrementAvailableCount = async () => {
 }
 
 export const decreaseAvailableCount = async () => {
-    const {orgId} = auth()
+    const authData = await auth();
+    if (!authData) {
+        return;
+    }
+    const {orgId} = authData;
 
     if (!orgId) {
         throw new Error("Unauthorized")
@@ -49,7 +57,11 @@ export const decreaseAvailableCount = async () => {
 }
 
 export const hasAvailableCount = async () => {
-    const {orgId} = auth()
+    const authData = await auth();
+    if (!authData) {
+        return;
+    }
+    const {orgId} = authData;
 
     if (!orgId) {
         throw new Error("Unauthorized")
@@ -63,7 +75,11 @@ export const hasAvailableCount = async () => {
 }
 
 export const getAvailableCount = async () => {
-    const {orgId} = auth()
+    const authData = await auth();
+    if (!authData) {
+        return;
+    }
+    const {orgId} = authData;
 
     if (!orgId) {
         return 0

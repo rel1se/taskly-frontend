@@ -3,7 +3,6 @@ import {OrganizationProfile} from "@clerk/nextjs";
 const SettingsPage = () => {
     return (
         <div>
-            {/*TODO: Доразобраться по стилям компонента (удалить тень и изменить размер)*/}
             <OrganizationProfile
                 routing="hash"
                 appearance={{

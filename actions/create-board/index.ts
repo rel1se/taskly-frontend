@@ -1,7 +1,6 @@
 "use server"
 
 import {InputType, ReturnType} from "./types"
-import {auth} from "@clerk/nextjs/server";
 import {db} from "@/lib/db";
 import {revalidatePath} from "next/cache";
 import {createSafeAction} from "@/lib/create-safe-action";
@@ -10,13 +9,19 @@ import {createAuditLog} from "@/lib/create-audit-log";
 import {ACTION, ENTITY_TYPE} from "@prisma/client";
 import {hasAvailableCount, incrementAvailableCount} from "@/lib/org-limit";
 import {checkSubscription} from "@/lib/subscription";
+import {auth} from "@/lib/auth";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-    const {userId, orgId} = auth()
+    const session = await auth()
 
-    if (!userId || !orgId) return {
-        error: 'Unauthorized'
+    if (!session?.orgId || !session?.userId) {
+        return {
+            error: 'Unauthorized'
+        }
     }
+
+    const orgId = session.orgId
+
     const canCreate = await hasAvailableCount()
     const isPro = await checkSubscription()
 

@@ -12,12 +12,12 @@ export const Navbar = () => {
                 <div className="space-x-4 md:block md:w-auto flex
                 items-center justify-between w-full">
                     <Button variant="outline" size="sm" asChild>
-                        <Link href="/sign-in">
+                        <Link href="/auth/login">
                             Login
                         </Link>
                     </Button>
                     <Button variant="default" size="sm" asChild>
-                        <Link href="/sign-up" >
+                        <Link href="/auth/register" >
                             Taskly for free
                         </Link>
                     </Button>

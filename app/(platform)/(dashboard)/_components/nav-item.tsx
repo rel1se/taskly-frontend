@@ -5,24 +5,28 @@ import Image from "next/image"
 import {useRouter, usePathname} from "next/navigation";
 
 import {AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion";
-import {ActivityIcon, CreditCardIcon, LayoutIcon, MessageCircle, PersonStandingIcon, SettingsIcon} from "lucide-react";
+import {ActivityIcon, CreditCardIcon, LayoutIcon, MessageCircle, SettingsIcon} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {Skeleton} from "@/components/ui/skeleton";
+import DefaultAvatar from "@/public/default-avatar.png";
 
 
-export type Organization = {
-    id: string,
-    slug: string,
-    imageUrl: string,
-    name: string
+export interface OrganizationSummary {
+    id: string;
+    name: string;
+    avatar?: string;
 }
 
-interface NavItemProps {
-    isExpanded: boolean;
+
+
+export type NavItemProps = {
+    organization: OrganizationSummary;
     isActive: boolean;
-    organization: Organization;
-    onExpand: (id: string) => void;
-}
+    isExpanded: boolean;
+    onExpand: () => void;
+    expandedState: Record<string, boolean>;
+};
+
 
 export const NavItem = ({
                             isActive,
@@ -80,7 +84,7 @@ export const NavItem = ({
                     <div className="w-7 h-7 relative">
                         <Image
                             fill
-                            src={organization.imageUrl}
+                            src={organization.avatar ?? DefaultAvatar}
                             alt={organization.name}
                             className="rounded-sm object-cover"
                         />

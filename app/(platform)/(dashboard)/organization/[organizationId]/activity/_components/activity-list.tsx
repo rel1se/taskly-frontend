@@ -1,15 +1,17 @@
-import {auth} from "@clerk/nextjs/server";
 import {redirect} from "next/navigation";
 import {db} from "@/lib/db";
 import {ActivityItem} from "@/components/activity-item";
 import {Skeleton} from "@/components/ui/skeleton";
+import {auth} from "@/lib/auth";
 
 export const ActivityList = async () => {
-    const {orgId} = auth()
+    const session = await auth()
 
-    if (!orgId) {
+    if (!session?.orgId) {
         redirect("/select-org")
     }
+
+    const orgId = session.orgId
 
     const auditLogs = await db.auditLog.findMany({
         where: {

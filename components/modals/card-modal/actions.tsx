@@ -5,7 +5,7 @@ import {CardWithList} from "@/types";
 import {Button} from "@/components/ui/button";
 import {Copy, Trash} from "lucide-react";
 import {copyCard} from "@/actions/copy-card";
-import {useAction} from "@/hooks/useAction";
+import {useAction} from "@/hooks/use-action";
 import {useParams} from "next/navigation";
 import {deleteCard} from "@/actions/delete-card";
 import {useCardModal} from "@/hooks/use-card-modal";

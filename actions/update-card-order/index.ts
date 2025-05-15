@@ -3,17 +3,19 @@ import {InputType, ReturnType} from "@/actions/update-card-order/types";
 import {db} from "@/lib/db";
 import {revalidatePath} from "next/cache";
 import {createSafeAction} from "@/lib/create-safe-action";
-import {auth} from "@clerk/nextjs/server";
 import {UpdateCardOrder} from "@/actions/update-card-order/schema";
+import {auth} from "@/lib/auth";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-    const {userId, orgId} = auth()
+    const session = await auth()
 
-    if (!userId || !orgId) {
+    if (!session?.orgId || !session?.userId) {
         return {
-            error: "Unauthorized"
+            error: 'Unauthorized'
         }
     }
+
+    const orgId = session.orgId
 
     const {items, boardId} = data
     let updatedCards;

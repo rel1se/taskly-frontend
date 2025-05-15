@@ -3,7 +3,7 @@ import {Button} from "@/components/ui/button";
 import {Plus, X} from "lucide-react";
 import {FormTextArea} from "@/components/form/form-area";
 import {FormSubmit} from "@/components/form/form-submit";
-import {useAction} from "@/hooks/useAction";
+import {useAction} from "@/hooks/use-action";
 import {createCard} from "@/actions/create-card";
 import {useParams} from "next/navigation";
 import {useEventListener, useOnClickOutside} from "usehooks-ts";

@@ -1,20 +1,17 @@
 "use client"
 
-import {useParams} from "next/navigation";
-import {useOrganizationList} from "@clerk/nextjs";
-import {useEffect} from "react";
+import { useEffect } from "react";
+import { useParams } from "next/navigation";
+import Cookies from "js-cookie";
 
 export const OrgControl = () => {
     const params = useParams();
-    const {setActive} = useOrganizationList();
+    const orgId = params.organizationId as string | undefined;
 
     useEffect(() => {
-        if(!setActive) return;
-
-        setActive({
-            organization: params.organizationId as string,
-        })
-    },[setActive, params.organizationId])
+        if (!orgId) return;
+        Cookies.set("orgId", orgId, { expires: 7 });
+    }, [orgId]);
 
     return null;
-}
+};

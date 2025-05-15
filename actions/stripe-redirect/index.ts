@@ -1,23 +1,26 @@
 "use server";
 
 import {ReturnType} from "@/actions/stripe-redirect/types";
-import {auth, currentUser} from "@clerk/nextjs/server";
 import {db} from "@/lib/db";
 import {createSafeAction} from "@/lib/create-safe-action";
 import {StripeRedirect} from "@/actions/stripe-redirect/schema";
 import {absoluteUrl} from "@/lib/utils";
 import {stripe} from "@/lib/stripe";
 import {revalidatePath} from "next/cache";
+import {auth} from "@/lib/auth";
 
 const handler = async (): Promise<ReturnType> => {
-    const {userId, orgId} = auth()
-    const user = await currentUser()
+    const session = await auth()
 
-    if (!userId || !orgId || !user) {
+    if (!session?.orgId || !session?.userId) {
         return {
-            error: "Unauthorized"
+            error: 'Unauthorized'
         }
     }
+
+    const orgId = session.orgId
+
+    const user = session.user
 
     const settingsUrl = absoluteUrl(`/organization/${orgId}`)
 
@@ -42,7 +45,7 @@ const handler = async (): Promise<ReturnType> => {
                 payment_method_types: ["card"],
                 mode: "subscription",
                 billing_address_collection: "auto",
-                customer_email: user.emailAddresses[0].emailAddress,
+                customer_email: user.email,
                 line_items: [
                     {
                         price_data: {

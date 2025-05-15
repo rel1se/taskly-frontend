@@ -1,18 +1,21 @@
-import {auth} from "@clerk/nextjs/server";
+
 import {notFound, redirect} from "next/navigation";
 import {db} from "@/lib/db";
 import {BoardNavbar} from "@/app/(platform)/(dashboard)/board/[boardId]/_components/board-navbar";
+import {auth} from "@/lib/auth";
 
 export async function generateMetadata(
     { params}: {
         params: {boardId: string};
     }) {
-    const {orgId} = auth();
-    if (!orgId) {
+    const session = await auth();
+    if (!session?.orgId) {
         return {
             title: "Board"
         }
     }
+
+    const orgId = session.orgId
 
     const board = await db.board.findUnique({
         where: {
@@ -30,11 +33,13 @@ const BoardIdLayout = async ({children, params}: {
     children: React.ReactNode;
     params: {boardId: string};
 }) => {
-    const {orgId } = auth()
 
-    if (!orgId) {
+    const session = await auth();
+    if (!session?.orgId) {
         redirect("/select-org")
     }
+
+    const orgId = session.orgId
 
     const board = await db.board.findUnique({
         where: {

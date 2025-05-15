@@ -1,8 +1,16 @@
 import Ably from "ably";
-import {auth} from "@clerk/nextjs/server";
+import {auth} from "@/lib/auth";
 
 export async function GET() {
-    const { orgId } = auth();
+    const session = await auth();
+
+    if (!session?.orgId) {
+        return {
+            error: 'Unauthorized'
+        }
+    }
+
+    const orgId = session.orgId
 
     const client = new Ably.Rest(process.env.ABLY_API_KEY!);
 

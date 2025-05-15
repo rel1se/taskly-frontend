@@ -10,10 +10,10 @@ export const Footer = () => {
                 <div className="space-x-4 md:block md:w-auto flex
                 items-center justify-between w-full">
                     <Button  size="sm" variant="ghost">
-                        Privacy Policy
+                        Политика конфиденциальности
                     </Button>
                     <Button size="sm" variant="ghost">
-                        Terms of Use
+                        Условия использования
                     </Button>
                 </div>
             </div>

@@ -4,7 +4,7 @@ import {Dialog, DialogContent} from "@/components/ui/dialog";
 import {useProModal} from "@/hooks/use-pro-modal";
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
-import {useAction} from "@/hooks/useAction";
+import {useAction} from "@/hooks/use-action";
 import {stripeRedirect} from "@/actions/stripe-redirect";
 import {toast} from "sonner";
 

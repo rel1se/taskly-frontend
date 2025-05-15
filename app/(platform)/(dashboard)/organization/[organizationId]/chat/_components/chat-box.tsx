@@ -3,12 +3,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useChannel } from 'ably/react';
 import { Button } from '@/components/ui/button';
-import { useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import { Textarea } from '@/components/ui/textarea';
 import { SendHorizonal } from "lucide-react";
 import {format} from "date-fns";
 import {ru} from "date-fns/locale";
+import {useProfile} from "@/hooks/use-profile";
 
 interface ChatMessage {
     id: string;
@@ -24,7 +24,7 @@ interface ChatBoxProps {
 }
 
 export default function ChatBox({ channelName }: ChatBoxProps) {
-    const { user } = useUser();
+    const { user } = useProfile();
     const inputBox = useRef<HTMLTextAreaElement>(null);
     const messageEndRef = useRef<HTMLDivElement>(null);
     const messagesContainerRef = useRef<HTMLDivElement>(null);
@@ -84,8 +84,8 @@ export default function ChatBox({ channelName }: ChatBoxProps) {
             id: Math.random().toString(),
             data: text,
             userId: user.id,
-            username: user.username!,
-            avatarUrl: user.imageUrl,
+            username: user.displayName!,
+            avatarUrl: user.picture,
             timestamp: Date.now(),
         };
 
@@ -200,9 +200,9 @@ export default function ChatBox({ channelName }: ChatBoxProps) {
                                     </div>
                                 </div>
 
-                                {isCurrentUser && user?.imageUrl && (
+                                {isCurrentUser && user?.picture && (
                                     <Image
-                                        src={user.imageUrl}
+                                        src={user.picture}
                                         alt="Your avatar"
                                         width={30}
                                         height={30}

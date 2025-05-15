@@ -11,7 +11,7 @@ import {useEventListener, useOnClickOutside} from "usehooks-ts";
 import {FormTextArea} from "@/components/form/form-area";
 import {FormSubmit} from "@/components/form/form-submit";
 import {Button} from "@/components/ui/button";
-import {useAction} from "@/hooks/useAction";
+import {useAction} from "@/hooks/use-action";
 import {updateCard} from "@/actions/update-card";
 import {toast} from "sonner";
 

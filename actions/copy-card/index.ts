@@ -1,22 +1,24 @@
 "use server";
 
 import {InputType, ReturnType} from "@/actions/copy-card/types";
-import {auth} from "@clerk/nextjs/server";
 import {db} from "@/lib/db";
 import {revalidatePath} from "next/cache";
 import {createSafeAction} from "@/lib/create-safe-action";
 import {CopyCard} from "@/actions/copy-card/schema";
 import {ACTION, ENTITY_TYPE} from "@prisma/client";
 import {createAuditLog} from "@/lib/create-audit-log";
+import {auth} from "@/lib/auth";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-    const {userId, orgId} = auth()
+    const session = await auth()
 
-    if (!userId || !orgId) {
+    if (!session?.orgId) {
         return {
-            error: "Unauthorized"
+            error: 'Unauthorized'
         }
     }
+
+    const orgId = session.orgId
 
     const {id, boardId} = data
     let card;

@@ -7,7 +7,7 @@ import {ElementRef, useRef, useState} from "react";
 import {Skeleton} from "@/components/ui/skeleton";
 import {useQueryClient} from "@tanstack/react-query";
 import {useParams} from "next/navigation";
-import {useAction} from "@/hooks/useAction";
+import {useAction} from "@/hooks/use-action";
 import {updateCard} from "@/actions/update-card";
 import {toast} from "sonner";
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
